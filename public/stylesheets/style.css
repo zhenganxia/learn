@@ -6,3 +6,31 @@ body {
 a {
   color: #00B7FF;
 }
+.menu ul,li{
+margin: 0;
+padding: 0;
+}
+.myMenu{
+	position: absolute;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    width: 150px;
+    list-style: none;
+    display: none;
+}
+.menu li{
+	border-bottom: 1px solid #ccc;
+    cursor: pointer;
+}
+.menu li:hover{
+	background-color: #ccc;
+}
+.but{
+  width: 80px;
+  height: 80px;
+  background-color: antiquewhite;
+  margin: 8px;
+  text-align: center;
+  line-height: 80px;
+  border:1px solid #bebebe;
+}

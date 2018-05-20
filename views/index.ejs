@@ -1,11 +1,164 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+    <div class="menu" id="menu"> 
+     <ul id="myMenu" class="myMenu">
+      <li>右键代码想干什么</li>
+      <li>想查看源代码</li>
+      <li>查看审查元素</li>
+     </ul>
+    </div>
+    <script type="text/javascript">
+    // var men= document.getElementById('myMenu');
+    // document.addEventListener("contextmenu",function(event){
+    //  event.preventDefault();
+    //  men.style.display="block";
+    //  men.style.top=event.clientY+"px";
+    //  men.style.left=event.clientX+"px";
+    // });
+    // document.addEventListener("click",function(event){
+    // men.style.display="none";
+    // })
+var EventUtil = {
+    addHandler:function (element,type,handler) {//判断元素能否使用dom2级方法添加事件处理方法如果不可以使用dom0级事件处理方法，如果不可以使用ie方法
+         if(element.addEventListener){
+              element.addEventListener(type, handler,false);
+          } else if (element.attachEvent) {
+             element.attachEvent("on" + type,handler);
+          }else {
+             element["on" + type] = handler;
+         }
+    },
+
+    getEvent:function(event){
+        return event ? event : window.event;//ie是window.event 获得事件对象
+    },
+    preventDefault:function(event){
+   if(event.preventDefault){
+    event.preventDefault();
+   }else{
+    event.returnValue=false;//ie 取消事件的默认行动使用returnValue
+   }
+    }
+ };
+ // EventUtil.addHandler(window,"load",function(event){
+ // 	var divs=document.getElementById("menu");
+ // 	EventUtil.addHandler(divs,"contextmenu",function(event){
+ // 		event=EventUtil.getEvent(event);
+ // 		EventUtil.preventDefault(event);
+
+ // 		var menu=document.getElementById("myMenu");
+ // 		menu.style.left=event.clientX+"px";
+ // 		menu.style.top=event.clientY+"px";
+ // 		debugger
+ // 		//menu.style.visibility="visible";
+ // 	});
+ // 	EventUtil.addHandler(document,"click",function(event){
+ //    document.getElementById("myMenu").style.visibility="hiddenz"
+ // 	})
+ // })
+
+// //beforeunload方法一
+  // EventUtil.addHandler(window, "beforeunload", function (event) {
+  //       event = EventUtil.getEvent(event);
+  //       var message = "你确定离开此页面吗?";
+  //       event.returnValue = message;
+  //         return message;
+  //   });
+//beforeunload方法二
+// window.addEventListener("beforeunload", function (event) {
+//   var confirmationMessage = '确定离开此页吗？本页不需要刷新或后退';
+//   (event || window.event).returnValue = confirmationMessage;     // Gecko and Trident
+//   return confirmationMessage;                                // Gecko and WebKit
+// });
+  
+  </script>
+  <button class="but">button</button>
+<script type="text/javascript">
+
+/*模拟鼠标点击
+//鼠标事件
+var btn=document.querySelector(".but");
+var btn=document.querySelector(".but");
+btn.addEventListener("click",function(event){
+console.log("hallo");
+},false);
+//模拟鼠标事件的初始化也可以添加鼠标事件的其他参数
+var ev=new MouseEvent("click",{
+  cancelable:true,
+  bubble:true,
+  view:window
+});
+btn.dispatchEvent(ev);//模拟事件的派发（触发）
+*/
+
+/*模拟键盘事件
+document.addEventListener("keyup",function(event){
+  console.log(String.fromCharCode(event.keyCode))
+},false);
+var es=new KeyboardEvent("keyup",{//初始化模拟键盘事件
+ bubble:true,
+ cancelable:true,
+ view:window,
+});
+document.dispatchEvent(es);//document是在文档中任意点击都会触发，如果要在btn上点击触发可以写成btn.dispatchEvent(es);
+*/
+
+
+
+</script>
+<br/>
+<input type="submit" value="提交按钮">
+<button type="submit">提交</button>
+<input type="image" src="images/0.png">
+
+<form id="myform" method="post">
+<ul>
+<li><input type="radio" name="color">the frog</li>
+<li><input type="radio" name="color">the world</li>
+<li><input type="radio" name="color">the birds</li>
+</ul>
+<button type="submit" id="btns" name="submit-btn">提交</button>
+<input type="text" name="inp" value="the world">
+</form>
+<script type="text/javascript">
+// var btnss=document.getElementById("myform");
+// btnss.addEventListener("submit",function(event){
+// var ts=target.elements["submit-btn"];
+// ts.disabled=true;
+// });
+
+// window.addEventListener("load",function(event){
+// document.forms[0].elements[0].focus();
+// })
+
+var sele=document.forms[0].elements['inp'];
+// sele.select();
+sele.addEventListener("focus",function(event){
+  event.target.select();
+});
+</script>
+<br/>
+<select name="location" id="location" >
+<option value="sun">sun</option>
+<option value="los">los</option>
+<option value="chaina">china</option>
+</select>
+<script type="text/javascript">
+
+var selectbox=document.getElementById("location");
+// var selectedIndex=selectbox.selectedIndex;
+// var selecteOptio=selectbox.options[selectedIndex];
+// alert(selectedIndex+selecteOptio.value+selecteOptio.text);
+var se=new Option("world","world");
+selectbox.add(se,0);
+</script>
+
+
+</body>
 </html>
+ 
