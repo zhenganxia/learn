@@ -34,3 +34,6 @@ padding: 0;
   line-height: 80px;
   border:1px solid #bebebe;
 }
+
+#div1 {width:100px;height:100px;padding:10px;border:1px solid #aaaaaa; }
+  #box1,#box2{width: 100px;height: 100px;padding: 10px;float: left;margin-right: 10px;border: 1px solid#ccc;}

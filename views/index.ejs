@@ -156,9 +156,247 @@ var selectbox=document.getElementById("location");
 // alert(selectedIndex+selecteOptio.value+selecteOptio.text);
 var se=new Option("world","world");
 selectbox.add(se,0);
+var see=selectbox.options;
+
+// selectbox.addEventListener("dragover",function(event){
+// event.preventDefault();
+// });
+// selectbox.addEventListener("dragenter",function(event){
+//   event.preventDefault();
+// })
+</script>
+<br/>
+<div id="cont" contenteditable>
+<p>good morning</p>
+<p>breakfast</p>
+<button>提交</button>
+</div>
+<script type="text/javascript">
+var cont=document.getElementById("cont");
+cont.contentEditable=true;
 </script>
 
+<img id="aa" src="images/0.png" width="60" height="50">
+<div id="div1" ></div>
+<br>
+<script type="text/javascript">
+var image=document.getElementById("aa");
+var div_d=document.getElementById("div1");
+image.addEventListener("dragstart",function(event){//设置被拖放数据的类型和值
+  event.draggable=true;
+  event.dataTransfer.setData("Text",image.id);//image.id可以写为event.target.ids
+});
+div_d.addEventListener("dragover",function(event){//设置放置被拖放的数据位置，取消之前的不能放置拖放数据的默认行为 
+  event.preventDefault();
+})
+div_d.addEventListener("drop",function(event){
+event.preventDefault();//取消事件的的默认行为，阻止打开获得的url
+var dro=event.dataTransfer.getData("Text");//获取拖放完毕获取的数据
+event.target.appendChild(document.getElementById(dro));//把拖放的数据内容渲染到页面
+});
 
-</body>
+</script>
+
+<div id="box1"  style="background-color:#bebebe"></div>
+  <div id="box2" ></div>
+  <img src="images/0.png" id="drag1"  width="60" height="50">
+  <script type="text/javascript">
+  var drag1=document.getElementById("drag1");
+  var box1=document.getElementById("box1");
+  var box2=document.getElementById("box2");
+  box1.addEventListener("dragover",function(event){
+    event.preventDefault();//取消要拖放的目标位置的默认行为，使可以存放位置
+  })
+   box2.addEventListener("dragover",function(event){
+    event.preventDefault();//取消要拖放的目标位置的默认行为，使可以存放位置
+  })
+drag1.addEventListener("dragstart",function(event){
+  event.draggable=true;
+    event.dataTransfer.setData("Text",event.target.id);//图片位置设置数据交换的类型和值，图片以id传递
+
+})
+  box2.addEventListener("drop",function(event){
+    event.preventDefault();//拖拽完成以后取消不能拖拽的默认行为
+    var data=event.dataTransfer.getData("Text");//获得交换数据是一个id
+    event.target.appendChild(document.getElementById(data));
+  })
+  box1.addEventListener("drop",function(event){
+    event.preventDefault();//拖拽完成以后取消不能拖拽的默认行为
+    var data=event.dataTransfer.getData("Text");//获得交换数据是一个id（id存放的是图片）
+    event.target.appendChild(document.getElementById(data));//把id获得的图片渲染到页面中
+  })
+  </script>
+<br/>
+<br/>
+<br/>
+
+  <div contenteditable="true" id="rich-editor">
+  
+  <p>百度团队</p>
+  </div>
+  <script type="text/javascript">
+  let iid=document.getElementById("rich-editor");
+  //iid.onclick=function(){document.execCommand("italic",false,null)};
+   // iid.onclick=function() {
+   //  let selection = window.getSelection();
+   //      selection.removeAllRanges();
+   //  let range = document.createRange();
+   //  range.setStart(startContainer, startOffset);
+   //  range.setEnd(endContainer, endOffset);
+   //  selection.addRange(range);
+// }
+  </script>
+
+  <input type="text" value="text school" name="text" id="text">
+<script type="text/javascript">
+var te=document.getElementById('text');
+te.addEventListener("focus",function(event){
+// var tex=event.target.setSelectionRange(0,3);
+// alert(tex);
+})
+</script>
+<script type="text/javascript">
+function selectText (textbox,startIndex,stopIndex) {
+if(textbox.setSelectionRange){
+  textbox.setSelectionRange(startIndex,stopIndex);
+}else if(textbox.createTextRange){
+  var range=textbox.createRange();
+  range.collapse(true);
+  range.moveStart("character",startIndex);
+  range.moveEnd("character",stopIndex-startIndex);
+  range.select();
+  textbox.focus();
+}
+};
+var textbox=document.getElementById("text");
+textbox.addEventListener("select",function(){
+  selectText(textbox,0,3);
+
+})
+
+</script>
+<input id="char" text="text" value="char">
+<script type="text/javascript">
+var EventUtil = {
+    addHandler:function (element,type,handler) {//判断元素能否使用dom2级方法添加事件处理方法如果不可以使用dom0级事件处理方法，如果不可以使用ie方法
+         if(element.addEventListener){
+              element.addEventListener(type, handler,false);
+          } else if (element.attachEvent) {
+             element.attachEvent("on" + type,handler);
+          }else {
+             element["on" + type] = handler;
+         }
+    },
+
+    getEvent:function(event){
+        return event ? event : window.event;//ie是window.event 获得事件对象
+    },
+    preventDefault:function(event){
+   if(event.preventDefault){
+    event.preventDefault();
+   }else{
+    event.returnValue=false;//ie 取消事件的默认行动使用returnValue
+   }
+    },
+    getCharCode:function(event){
+    if(typeof event.charCode=="number"){
+      return event.charCode;
+    }else{
+      return event.keyCode;
+    }
+    }
+ };
+var doc=document.getElementById("char");
+// EventUtil.addHandler(doc,"keypress",function(event){
+// event=EventUtil.getEvent(event);
+// code=EventUtil.getCharCode(event);
+// console.log(code)
+// })
+
+
+//try-catch使用方法
+// EventUtil.addHandler(doc,"keypress",function(event){
+//   event=EventUtil.getEvent(event);
+//  var charCode=EventUtil.getCharCode(event);
+//  try{
+    
+// if(!/\d/.test(String.fromCharCode(charCode)) && charCode>9 && !event.ctrlKey){
+//   EventUtil.preventDefaul(event);
+//  }
+// }catch(error){
+// // if(error instanceof TypeError){
+// // console.log("TypeError");
+// // }else if(error instanceof ReferenceError){
+// // console.log("ReferenceRrror");
+// // }
+// console.log(error.message)
+// }
+// });
+
+
+</script>
+<script type="text/javascript">
+
+// function process(values) {
+// values.sort();
+// for (var i = 0, len= values.length; i<len;i++ ){
+// if(values[i]>100){
+//   return values[i]
+// }
+// }
+// return -1;
+// };
+// process();
+// var values=[1,2,4,5,99,100,101,104,107];
+var values=[10,20,30,50,100,110,120,60,70]
+//var values="the school";
+function process(values){
+  if(!(values instanceof Array)){
+     throw new Error("process():argument must be an array");
+    }
+    values.sort();
+
+    for (var i=0, len=values.length; i < len; i++){
+        if (values[i] > 100){
+            return values[i];
+        }
+         // console.warn(values);
+         // console.error("RefenceError");
+         // console.info("message")
+    }
+    return -1;
+}
+process(values);
+
+</script>
+<div>
+<button id="bind">函数绑定</button>
+</div>
+<SCRIPT TYPE="text/javascript">
+// function bind(fn,context){
+//   return function(){
+//     return fn.apply(context,arguments);
+//   }
+// }
+
+var handler={
+  message:"event handler",
+  handlerClick:function  (event) {
+    console.log(this.message + event.type);
+  }
+}
+var bin=document.getElementById("bind");
+//bin.addEventListener("click",bind(handler.handlerClick,handler));
+bin.addEventListener("click",handler.handlerClick.bind(handler));
+
+var person={name:"lili"};
+// Object.preventExtensions(person);
+// Object.seal(person);
+Object.freeze(person);
+person.age=27;
+person.name="liming";
+console.log(person.name);
+console.log(Object.isFrozen(person));
+</SCRIPT>
 </html>
  
