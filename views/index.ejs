@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <div class="menu" id="menu"> 
-     <ul id="myMenu" class="myMenu">
-      <li>右键代码想干什么</li>
-      <li>想查看源代码</li>
-      <li>查看审查元素</li>
-     </ul>
+    <script type="text/javascript" src="https://unpkg.com/vue@2.3.3/dist/vue.js"></script>
+</head>
+
+<body>
+    <div class="menu" id="menu">
+        <ul id="myMenu" class="myMenu">
+            <li>右键代码想干什么</li>
+            <li>想查看源代码</li>
+            <li>查看审查元素</li>
+        </ul>
     </div>
     <script type="text/javascript">
     // var men= document.getElementById('myMenu');
@@ -23,380 +26,750 @@
     // document.addEventListener("click",function(event){
     // men.style.display="none";
     // })
-var EventUtil = {
-    addHandler:function (element,type,handler) {//判断元素能否使用dom2级方法添加事件处理方法如果不可以使用dom0级事件处理方法，如果不可以使用ie方法
-         if(element.addEventListener){
-              element.addEventListener(type, handler,false);
-          } else if (element.attachEvent) {
-             element.attachEvent("on" + type,handler);
-          }else {
-             element["on" + type] = handler;
-         }
-    },
+    var EventUtil = {
+        addHandler: function(element, type, handler) { //判断元素能否使用dom2级方法添加事件处理方法如果不可以使用dom0级事件处理方法，如果不可以使用ie方法
+            if (element.addEventListener) {
+                element.addEventListener(type, handler, false);
+            } else if (element.attachEvent) {
+                element.attachEvent("on" + type, handler);
+            } else {
+                element["on" + type] = handler;
+            }
+        },
 
-    getEvent:function(event){
-        return event ? event : window.event;//ie是window.event 获得事件对象
-    },
-    preventDefault:function(event){
-   if(event.preventDefault){
-    event.preventDefault();
-   }else{
-    event.returnValue=false;//ie 取消事件的默认行动使用returnValue
-   }
-    }
- };
- // EventUtil.addHandler(window,"load",function(event){
- // 	var divs=document.getElementById("menu");
- // 	EventUtil.addHandler(divs,"contextmenu",function(event){
- // 		event=EventUtil.getEvent(event);
- // 		EventUtil.preventDefault(event);
-
- // 		var menu=document.getElementById("myMenu");
- // 		menu.style.left=event.clientX+"px";
- // 		menu.style.top=event.clientY+"px";
- // 		debugger
- // 		//menu.style.visibility="visible";
- // 	});
- // 	EventUtil.addHandler(document,"click",function(event){
- //    document.getElementById("myMenu").style.visibility="hiddenz"
- // 	})
- // })
-
-// //beforeunload方法一
-  // EventUtil.addHandler(window, "beforeunload", function (event) {
-  //       event = EventUtil.getEvent(event);
-  //       var message = "你确定离开此页面吗?";
-  //       event.returnValue = message;
-  //         return message;
-  //   });
-//beforeunload方法二
-// window.addEventListener("beforeunload", function (event) {
-//   var confirmationMessage = '确定离开此页吗？本页不需要刷新或后退';
-//   (event || window.event).returnValue = confirmationMessage;     // Gecko and Trident
-//   return confirmationMessage;                                // Gecko and WebKit
-// });
-  
-  </script>
-  <button class="but">button</button>
-<script type="text/javascript">
-
-/*模拟鼠标点击
-//鼠标事件
-var btn=document.querySelector(".but");
-var btn=document.querySelector(".but");
-btn.addEventListener("click",function(event){
-console.log("hallo");
-},false);
-//模拟鼠标事件的初始化也可以添加鼠标事件的其他参数
-var ev=new MouseEvent("click",{
-  cancelable:true,
-  bubble:true,
-  view:window
-});
-btn.dispatchEvent(ev);//模拟事件的派发（触发）
-*/
-
-/*模拟键盘事件
-document.addEventListener("keyup",function(event){
-  console.log(String.fromCharCode(event.keyCode))
-},false);
-var es=new KeyboardEvent("keyup",{//初始化模拟键盘事件
- bubble:true,
- cancelable:true,
- view:window,
-});
-document.dispatchEvent(es);//document是在文档中任意点击都会触发，如果要在btn上点击触发可以写成btn.dispatchEvent(es);
-*/
-
-
-
-</script>
-<br/>
-<input type="submit" value="提交按钮">
-<button type="submit">提交</button>
-<input type="image" src="images/0.png">
-
-<form id="myform" method="post">
-<ul>
-<li><input type="radio" name="color">the frog</li>
-<li><input type="radio" name="color">the world</li>
-<li><input type="radio" name="color">the birds</li>
-</ul>
-<button type="submit" id="btns" name="submit-btn">提交</button>
-<input type="text" name="inp" value="the world">
-</form>
-<script type="text/javascript">
-// var btnss=document.getElementById("myform");
-// btnss.addEventListener("submit",function(event){
-// var ts=target.elements["submit-btn"];
-// ts.disabled=true;
-// });
-
-// window.addEventListener("load",function(event){
-// document.forms[0].elements[0].focus();
-// })
-
-var sele=document.forms[0].elements['inp'];
-// sele.select();
-sele.addEventListener("focus",function(event){
-  event.target.select();
-});
-</script>
-<br/>
-<select name="location" id="location" >
-<option value="sun">sun</option>
-<option value="los">los</option>
-<option value="chaina">china</option>
-</select>
-<script type="text/javascript">
-
-var selectbox=document.getElementById("location");
-// var selectedIndex=selectbox.selectedIndex;
-// var selecteOptio=selectbox.options[selectedIndex];
-// alert(selectedIndex+selecteOptio.value+selecteOptio.text);
-var se=new Option("world","world");
-selectbox.add(se,0);
-var see=selectbox.options;
-
-// selectbox.addEventListener("dragover",function(event){
-// event.preventDefault();
-// });
-// selectbox.addEventListener("dragenter",function(event){
-//   event.preventDefault();
-// })
-</script>
-<br/>
-<div id="cont" contenteditable>
-<p>good morning</p>
-<p>breakfast</p>
-<button>提交</button>
-</div>
-<script type="text/javascript">
-var cont=document.getElementById("cont");
-cont.contentEditable=true;
-</script>
-
-<img id="aa" src="images/0.png" width="60" height="50">
-<div id="div1" ></div>
-<br>
-<script type="text/javascript">
-var image=document.getElementById("aa");
-var div_d=document.getElementById("div1");
-image.addEventListener("dragstart",function(event){//设置被拖放数据的类型和值
-  event.draggable=true;
-  event.dataTransfer.setData("Text",image.id);//image.id可以写为event.target.ids
-});
-div_d.addEventListener("dragover",function(event){//设置放置被拖放的数据位置，取消之前的不能放置拖放数据的默认行为 
-  event.preventDefault();
-})
-div_d.addEventListener("drop",function(event){
-event.preventDefault();//取消事件的的默认行为，阻止打开获得的url
-var dro=event.dataTransfer.getData("Text");//获取拖放完毕获取的数据
-event.target.appendChild(document.getElementById(dro));//把拖放的数据内容渲染到页面
-});
-
-</script>
-
-<div id="box1"  style="background-color:#bebebe"></div>
-  <div id="box2" ></div>
-  <img src="images/0.png" id="drag1"  width="60" height="50">
-  <script type="text/javascript">
-  var drag1=document.getElementById("drag1");
-  var box1=document.getElementById("box1");
-  var box2=document.getElementById("box2");
-  box1.addEventListener("dragover",function(event){
-    event.preventDefault();//取消要拖放的目标位置的默认行为，使可以存放位置
-  })
-   box2.addEventListener("dragover",function(event){
-    event.preventDefault();//取消要拖放的目标位置的默认行为，使可以存放位置
-  })
-drag1.addEventListener("dragstart",function(event){
-  event.draggable=true;
-    event.dataTransfer.setData("Text",event.target.id);//图片位置设置数据交换的类型和值，图片以id传递
-
-})
-  box2.addEventListener("drop",function(event){
-    event.preventDefault();//拖拽完成以后取消不能拖拽的默认行为
-    var data=event.dataTransfer.getData("Text");//获得交换数据是一个id
-    event.target.appendChild(document.getElementById(data));
-  })
-  box1.addEventListener("drop",function(event){
-    event.preventDefault();//拖拽完成以后取消不能拖拽的默认行为
-    var data=event.dataTransfer.getData("Text");//获得交换数据是一个id（id存放的是图片）
-    event.target.appendChild(document.getElementById(data));//把id获得的图片渲染到页面中
-  })
-  </script>
-<br/>
-<br/>
-<br/>
-
-  <div contenteditable="true" id="rich-editor">
-  
-  <p>百度团队</p>
-  </div>
-  <script type="text/javascript">
-  let iid=document.getElementById("rich-editor");
-  //iid.onclick=function(){document.execCommand("italic",false,null)};
-   // iid.onclick=function() {
-   //  let selection = window.getSelection();
-   //      selection.removeAllRanges();
-   //  let range = document.createRange();
-   //  range.setStart(startContainer, startOffset);
-   //  range.setEnd(endContainer, endOffset);
-   //  selection.addRange(range);
-// }
-  </script>
-
-  <input type="text" value="text school" name="text" id="text">
-<script type="text/javascript">
-var te=document.getElementById('text');
-te.addEventListener("focus",function(event){
-// var tex=event.target.setSelectionRange(0,3);
-// alert(tex);
-})
-</script>
-<script type="text/javascript">
-function selectText (textbox,startIndex,stopIndex) {
-if(textbox.setSelectionRange){
-  textbox.setSelectionRange(startIndex,stopIndex);
-}else if(textbox.createTextRange){
-  var range=textbox.createRange();
-  range.collapse(true);
-  range.moveStart("character",startIndex);
-  range.moveEnd("character",stopIndex-startIndex);
-  range.select();
-  textbox.focus();
-}
-};
-var textbox=document.getElementById("text");
-textbox.addEventListener("select",function(){
-  selectText(textbox,0,3);
-
-})
-
-</script>
-<input id="char" text="text" value="char">
-<script type="text/javascript">
-var EventUtil = {
-    addHandler:function (element,type,handler) {//判断元素能否使用dom2级方法添加事件处理方法如果不可以使用dom0级事件处理方法，如果不可以使用ie方法
-         if(element.addEventListener){
-              element.addEventListener(type, handler,false);
-          } else if (element.attachEvent) {
-             element.attachEvent("on" + type,handler);
-          }else {
-             element["on" + type] = handler;
-         }
-    },
-
-    getEvent:function(event){
-        return event ? event : window.event;//ie是window.event 获得事件对象
-    },
-    preventDefault:function(event){
-   if(event.preventDefault){
-    event.preventDefault();
-   }else{
-    event.returnValue=false;//ie 取消事件的默认行动使用returnValue
-   }
-    },
-    getCharCode:function(event){
-    if(typeof event.charCode=="number"){
-      return event.charCode;
-    }else{
-      return event.keyCode;
-    }
-    }
- };
-var doc=document.getElementById("char");
-// EventUtil.addHandler(doc,"keypress",function(event){
-// event=EventUtil.getEvent(event);
-// code=EventUtil.getCharCode(event);
-// console.log(code)
-// })
-
-
-//try-catch使用方法
-// EventUtil.addHandler(doc,"keypress",function(event){
-//   event=EventUtil.getEvent(event);
-//  var charCode=EventUtil.getCharCode(event);
-//  try{
-    
-// if(!/\d/.test(String.fromCharCode(charCode)) && charCode>9 && !event.ctrlKey){
-//   EventUtil.preventDefaul(event);
-//  }
-// }catch(error){
-// // if(error instanceof TypeError){
-// // console.log("TypeError");
-// // }else if(error instanceof ReferenceError){
-// // console.log("ReferenceRrror");
-// // }
-// console.log(error.message)
-// }
-// });
-
-
-</script>
-<script type="text/javascript">
-
-// function process(values) {
-// values.sort();
-// for (var i = 0, len= values.length; i<len;i++ ){
-// if(values[i]>100){
-//   return values[i]
-// }
-// }
-// return -1;
-// };
-// process();
-// var values=[1,2,4,5,99,100,101,104,107];
-var values=[10,20,30,50,100,110,120,60,70]
-//var values="the school";
-function process(values){
-  if(!(values instanceof Array)){
-     throw new Error("process():argument must be an array");
-    }
-    values.sort();
-
-    for (var i=0, len=values.length; i < len; i++){
-        if (values[i] > 100){
-            return values[i];
+        getEvent: function(event) {
+            return event ? event : window.event; //ie是window.event 获得事件对象
+        },
+        preventDefault: function(event) {
+            if (event.preventDefault) {
+                event.preventDefault();
+            } else {
+                event.returnValue = false; //ie 取消事件的默认行动使用returnValue
+            }
         }
-         // console.warn(values);
-         // console.error("RefenceError");
-         // console.info("message")
+    };
+    // EventUtil.addHandler(window,"load",function(event){
+    //  var divs=document.getElementById("menu");
+    //  EventUtil.addHandler(divs,"contextmenu",function(event){
+    //    event=EventUtil.getEvent(event);
+    //    EventUtil.preventDefault(event);
+
+    //    var menu=document.getElementById("myMenu");
+    //    menu.style.left=event.clientX+"px";
+    //    menu.style.top=event.clientY+"px";
+    //    debugger
+    //    //menu.style.visibility="visible";
+    //  });
+    //  EventUtil.addHandler(document,"click",function(event){
+    //    document.getElementById("myMenu").style.visibility="hiddenz"
+    //  })
+    // })
+
+    // //beforeunload方法一
+    // EventUtil.addHandler(window, "beforeunload", function (event) {
+    //       event = EventUtil.getEvent(event);
+    //       var message = "你确定离开此页面吗?";
+    //       event.returnValue = message;
+    //         return message;
+    //   });
+    //beforeunload方法二
+    // window.addEventListener("beforeunload", function (event) {
+    //   var confirmationMessage = '确定离开此页吗？本页不需要刷新或后退';
+    //   (event || window.event).returnValue = confirmationMessage;     // Gecko and Trident
+    //   return confirmationMessage;                                // Gecko and WebKit
+    // });
+    </script>
+    <button class="but">button</button>
+    <script type="text/javascript">
+    /*模拟鼠标点击
+    //鼠标事件
+    var btn=document.querySelector(".but");
+    var btn=document.querySelector(".but");
+    btn.addEventListener("click",function(event){
+    console.log("hallo");
+    },false);
+    //模拟鼠标事件的初始化也可以添加鼠标事件的其他参数
+    var ev=new MouseEvent("click",{
+      cancelable:true,
+      bubble:true,
+      view:window
+    });
+    btn.dispatchEvent(ev);//模拟事件的派发（触发）
+    */
+
+    /*模拟键盘事件
+    document.addEventListener("keyup",function(event){
+      console.log(String.fromCharCode(event.keyCode))
+    },false);
+    var es=new KeyboardEvent("keyup",{//初始化模拟键盘事件
+     bubble:true,
+     cancelable:true,
+     view:window,
+    });
+    document.dispatchEvent(es);//document是在文档中任意点击都会触发，如果要在btn上点击触发可以写成btn.dispatchEvent(es);
+    */
+    </script>
+    <br/>
+    <input type="submit" value="提交按钮">
+    <button type="submit">提交</button>
+    <input type="image" src="images/0.png">
+    <form id="myform" method="post">
+        <ul>
+            <li>
+                <input type="radio" name="color">the frog</li>
+            <li>
+                <input type="radio" name="color">the world</li>
+            <li>
+                <input type="radio" name="color">the birds</li>
+        </ul>
+        <button type="submit" id="btns" name="submit-btn">提交</button>
+        <input type="text" name="inp" value="the world">
+    </form>
+    <script type="text/javascript">
+    // var btnss=document.getElementById("myform");
+    // btnss.addEventListener("submit",function(event){
+    // var ts=target.elements["submit-btn"];
+    // ts.disabled=true;
+    // });
+
+    // window.addEventListener("load",function(event){
+    // document.forms[0].elements[0].focus();
+    // })
+
+    var sele = document.forms[0].elements['inp'];
+    // sele.select();
+    sele.addEventListener("focus", function(event) {
+        event.target.select();
+    });
+    </script>
+    <br/>
+    <select name="location" id="location">
+        <option value="sun">sun</option>
+        <option value="los">los</option>
+        <option value="chaina">china</option>
+    </select>
+    <script type="text/javascript">
+    var selectbox = document.getElementById("location");
+    // var selectedIndex=selectbox.selectedIndex;
+    // var selecteOptio=selectbox.options[selectedIndex];
+    // alert(selectedIndex+selecteOptio.value+selecteOptio.text);
+    var se = new Option("world", "world");
+    selectbox.add(se, 0);
+    var see = selectbox.options;
+
+    // selectbox.addEventListener("dragover",function(event){
+    // event.preventDefault();
+    // });
+    // selectbox.addEventListener("dragenter",function(event){
+    //   event.preventDefault();
+    // })
+    </script>
+    <br/>
+    <div id="cont" contenteditable>
+        <p>good morning</p>
+        <p>breakfast</p>
+        <button>提交</button>
+    </div>
+    <script type="text/javascript">
+    var cont = document.getElementById("cont");
+    cont.contentEditable = true;
+    </script>
+    <img id="aa" src="images/0.png" width="60" height="50">
+    <div id="div1"></div>
+    <br>
+    <script type="text/javascript">
+    var image = document.getElementById("aa");
+    var div_d = document.getElementById("div1");
+    image.addEventListener("dragstart", function(event) { //设置被拖放数据的类型和值
+        event.draggable = true;
+        event.dataTransfer.setData("Text", image.id); //image.id可以写为event.target.ids
+    });
+    div_d.addEventListener("dragover", function(event) { //设置放置被拖放的数据位置，取消之前的不能放置拖放数据的默认行为 
+        event.preventDefault();
+    })
+    div_d.addEventListener("drop", function(event) {
+        event.preventDefault(); //取消事件的的默认行为，阻止打开获得的url
+        var dro = event.dataTransfer.getData("Text"); //获取拖放完毕获取的数据
+        event.target.appendChild(document.getElementById(dro)); //把拖放的数据内容渲染到页面
+    });
+    </script>
+    <div id="box1" style="background-color:#bebebe"></div>
+    <div id="box2"></div>
+    <img src="images/0.png" id="drag1" width="60" height="50">
+    <script type="text/javascript">
+    var drag1 = document.getElementById("drag1");
+    var box1 = document.getElementById("box1");
+    var box2 = document.getElementById("box2");
+    box1.addEventListener("dragover", function(event) {
+        event.preventDefault(); //取消要拖放的目标位置的默认行为，使可以存放位置
+    })
+    box2.addEventListener("dragover", function(event) {
+        event.preventDefault(); //取消要拖放的目标位置的默认行为，使可以存放位置
+    })
+    drag1.addEventListener("dragstart", function(event) {
+        event.draggable = true;
+        event.dataTransfer.setData("Text", event.target.id); //图片位置设置数据交换的类型和值，图片以id传递
+
+    })
+    box2.addEventListener("drop", function(event) {
+        event.preventDefault(); //拖拽完成以后取消不能拖拽的默认行为
+        var data = event.dataTransfer.getData("Text"); //获得交换数据是一个id
+        event.target.appendChild(document.getElementById(data));
+    })
+    box1.addEventListener("drop", function(event) {
+        event.preventDefault(); //拖拽完成以后取消不能拖拽的默认行为
+        var data = event.dataTransfer.getData("Text"); //获得交换数据是一个id（id存放的是图片）
+        event.target.appendChild(document.getElementById(data)); //把id获得的图片渲染到页面中
+    })
+    </script>
+    <br/>
+    <br/>
+    <br/>
+    <div contenteditable="true" id="rich-editor">
+        <p>百度团队</p>
+    </div>
+    <script type="text/javascript">
+    let iid = document.getElementById("rich-editor");
+    //iid.onclick=function(){document.execCommand("italic",false,null)};
+    // iid.onclick=function() {
+    //  let selection = window.getSelection();
+    //      selection.removeAllRanges();
+    //  let range = document.createRange();
+    //  range.setStart(startContainer, startOffset);
+    //  range.setEnd(endContainer, endOffset);
+    //  selection.addRange(range);
+    // }
+    </script>
+    <input type="text" value="text school" name="text" id="text">
+    <script type="text/javascript">
+    var te = document.getElementById('text');
+    te.addEventListener("focus", function(event) {
+        // var tex=event.target.setSelectionRange(0,3);
+        // alert(tex);
+    })
+    </script>
+    <script type="text/javascript">
+    function selectText(textbox, startIndex, stopIndex) {
+        if (textbox.setSelectionRange) {
+            textbox.setSelectionRange(startIndex, stopIndex);
+        } else if (textbox.createTextRange) {
+            var range = textbox.createRange();
+            range.collapse(true);
+            range.moveStart("character", startIndex);
+            range.moveEnd("character", stopIndex - startIndex);
+            range.select();
+            textbox.focus();
+        }
+    };
+    var textbox = document.getElementById("text");
+    textbox.addEventListener("select", function() {
+        selectText(textbox, 0, 3);
+
+    })
+    </script>
+    <input id="char" text="text" value="char">
+    <script type="text/javascript">
+    var EventUtil = {
+        addHandler: function(element, type, handler) { //判断元素能否使用dom2级方法添加事件处理方法如果不可以使用dom0级事件处理方法，如果不可以使用ie方法
+            if (element.addEventListener) {
+                element.addEventListener(type, handler, false);
+            } else if (element.attachEvent) {
+                element.attachEvent("on" + type, handler);
+            } else {
+                element["on" + type] = handler;
+            }
+        },
+
+        getEvent: function(event) {
+            return event ? event : window.event; //ie是window.event 获得事件对象
+        },
+        preventDefault: function(event) {
+            if (event.preventDefault) {
+                event.preventDefault();
+            } else {
+                event.returnValue = false; //ie 取消事件的默认行动使用returnValue
+            }
+        },
+        getCharCode: function(event) {
+            if (typeof event.charCode == "number") {
+                return event.charCode;
+            } else {
+                return event.keyCode;
+            }
+        }
+    };
+    var doc = document.getElementById("char");
+    // EventUtil.addHandler(doc,"keypress",function(event){
+    // event=EventUtil.getEvent(event);
+    // code=EventUtil.getCharCode(event);
+    // console.log(code)
+    // })
+
+
+    //try-catch使用方法
+    // EventUtil.addHandler(doc,"keypress",function(event){
+    //   event=EventUtil.getEvent(event);
+    //  var charCode=EventUtil.getCharCode(event);
+    //  try{
+
+    // if(!/\d/.test(String.fromCharCode(charCode)) && charCode>9 && !event.ctrlKey){
+    //   EventUtil.preventDefaul(event);
+    //  }
+    // }catch(error){
+    // // if(error instanceof TypeError){
+    // // console.log("TypeError");
+    // // }else if(error instanceof ReferenceError){
+    // // console.log("ReferenceRrror");
+    // // }
+    // console.log(error.message)
+    // }
+    // });
+    </script>
+    <script type="text/javascript">
+    // function process(values) {
+    // values.sort();
+    // for (var i = 0, len= values.length; i<len;i++ ){
+    // if(values[i]>100){
+    //   return values[i]
+    // }
+    // }
+    // return -1;
+    // };
+    // process();
+    // var values=[1,2,4,5,99,100,101,104,107];
+    var values = [10, 20, 30, 50, 100, 110, 120, 60, 70]
+    //var values="the school";
+    function process(values) {
+        if (!(values instanceof Array)) {
+            throw new Error("process():argument must be an array");
+        }
+        values.sort();
+
+        for (var i = 0, len = values.length; i < len; i++) {
+            if (values[i] > 100) {
+                return values[i];
+            }
+            // console.warn(values);
+            // console.error("RefenceError");
+            // console.info("message")
+        }
+        return -1;
     }
-    return -1;
-}
-process(values);
+    process(values);
+    </script>
+    <div>
+        <button id="bind">函数绑定</button>
+    </div>
+    <SCRIPT TYPE="text/javascript">
+    // function bind(fn,context){
+    //   return function(){
+    //     return fn.apply(context,arguments);
+    //   }
+    // }
+
+    var handler = {
+        message: "event handler",
+        handlerClick: function(event) {
+            console.log(this.message + event.type);
+        }
+    }
+    var bin = document.getElementById("bind");
+    //bin.addEventListener("click",bind(handler.handlerClick,handler));
+    bin.addEventListener("click", handler.handlerClick.bind(handler));
+
+    var person = { name: "lili" };
+    // Object.preventExtensions(person);
+    // Object.seal(person);
+    Object.freeze(person);
+    person.age = 27;
+    person.name = "liming";
+    // console.log(person.name);
+    // console.log(Object.isFrozen(person));
+    </SCRIPT>
+    <div id="app">
+        <p v-html="name"></p>
+        <a :href="link">链接</a>
+        <p v-show="sho">{{text}}</p>
+        <p v-if="ifs">{{ifss}}</p>
+        <p v-else>{{text}}</p>
+        <ul>
+            <li v-for="item in items">{{item}}</li>
+        </ul>
+        <button id="sh" v-on:click="say">say</button>
+        <p>{{a}}</p>
+        <input type="text" v-model="model">
+        <p>{{model}}</p>
+    </div>
+    <script type="text/javascript">
+    var app = new Vue({
+        el: "#app",
+        data: {
+            name: "<b>练习教程</b>",
+            text: "练习项目",
+            link: "https://www.baidu.com",
+            sho: true,
+            ifss: "确认加载",
+            ifs: false,
+            items: ['red', 'yellow', 'blue'],
+            model: "hello",
+            a: 0
+        },
+        methods: {
+            say() {
+                return this.a++;
+            }
+        },
+        watch: {
+            model() {
+                console.log("有了变化值");
+                console.log(this.model)
+            }
+        },
+        // watch:{
+        //   a:function(){
+        //     console.log(this.a);
+        //   }
+        // }
+    });
+    </script>
+    
+    <div id="app1"></div>
+<script type="text/javascript">
+// Vue.component('my-article',{
+// template:'<div>
+//         <div >
+//             <h1 >这里是文章的标题</h1>
+//             <div >
+//                 <span>2017年4月10号</span>
+//                 <span >原创</span>
+//             </div>
+//         </div>
+//         <img src="images/0.png">
+//     </div>'
+// })
+
+// var app1=new Vue({
+//   el:"#app1"
+// })
 
 </script>
-<div>
-<button id="bind">函数绑定</button>
+<div id="app3">
+<my-article v-for="item in article"  :detail="item"></my-article>
 </div>
-<SCRIPT TYPE="text/javascript">
-// function bind(fn,context){
-//   return function(){
-//     return fn.apply(context,arguments);
-//   }
-// }
+ <script>
+    Vue.component('my-article',{
+        props:['detail'],
+       template:`<div>
+                <div>
+                <h1>{{detail.title}}</h1>
+                <div>
+                <span>{{detail.date}}</span>
+                <span v-show="detail.is_origin">原创</span>
+                </div>
+                </div>
+                <img :src="detail.cover_url" alt="">
+                </div>`
+    });
 
-var handler={
-  message:"event handler",
-  handlerClick:function  (event) {
-    console.log(this.message + event.type);
-  }
-}
-var bin=document.getElementById("bind");
-//bin.addEventListener("click",bind(handler.handlerClick,handler));
-bin.addEventListener("click",handler.handlerClick.bind(handler));
+    let app3 = new Vue({
+       el:"#app3",
+       data:{
+        article:[{
+            title:"第一节：Vue.js框架是什么,为什么选择它？",
+            date:"2017年03月06日",
+            is_origin:true,
+            cover_url:"images/0.png"
 
-var person={name:"lili"};
-// Object.preventExtensions(person);
-// Object.seal(person);
-Object.freeze(person);
-person.age=27;
-person.name="liming";
-console.log(person.name);
-console.log(Object.isFrozen(person));
-</SCRIPT>
+        },
+        {
+            title:"第二节：简单安装和快速入门",
+            date:"2017年03月09日",
+            is_origin:true,
+            cover_url:"images/0.png"
+
+        },
+        {
+            title:"第三节：创建vue实例",
+            date:"2017年03月17日",
+            is_origin:true,
+            cover_url:"images/0.png"
+
+        }]
+       }
+    });
+ </script>
+
+
+
+
+
+
+
+<div id="app2">
+<input type="text" @keyup="calculate" v-model="augend">
+<span>+</span>
+<input type="text"  @keyup="calculate" v-model="addend">
+<span>=</span>
+<input type="text" :value="sum">
+<button @click="reset">清空数据</button>
+</div>
+<script type="text/javascript">
+var app2=new Vue({
+    el:"#app2",
+    data:{
+       augend:'',
+       addend:'',
+       sum:''
+    },
+    methods:{
+        calculate(){
+         this.sum=Number(this.augend)+Number(this.addend);
+        },
+        reset(){
+            this.sum=this.augend=this.addend='';
+            // this.$emit('reset');
+        }
+    }
+});
+
+
+
+</script>
+<div id="app4">
+<son @connent="say"></son>
+</div>
+<script type="text/javascript">
+// Vue.component("son",{
+//     props:["message"],
+//     template:`<div>{{message}}</div>`
+// })
+
+// let app4=new Vue({
+//     el:"#app4",
+//     data:{
+//         msg:"父组件消息"
+//     }
+// });
+Vue.component("son",{
+    template:`<button @click="send">监听</button>`,
+    data(){
+        return{
+            msg:'大家好，我是子组件的数据'
+        }
+    },
+    methods:{
+        send(){
+            this.$emit('connent',this.msg);
+        }
+    }
+});
+let app4=new Vue({
+    el:"#app4",
+   methods:{
+    say(msg){
+        console.log(msg);
+    }
+   }
+});
+</script>
+
+<div id="app5">
+<my-ar v-for="item in arts" :mess="item"  :class="{'activ':isActiv}"></my-ar>
+</div>
+
+<script type="text/javascript">
+Vue.component("my-ar",{
+    props:['mess'],
+    template:`<div>
+<div>
+<h1>{{mess.title}}</h1>
+<span>{{mess.date}}</span>
+<span v-show="mess.is_or">原创</span>
+</div>
+<img :src="mess.ima">
+</div>`
+});
+
+let app5=new Vue({
+    el:"#app5",
+    data:{
+        isActiv:true,
+        arts:[{
+            title:"基础练习",
+            date:'2018年06月07日',
+            is_or:true,
+            ima:"images/0.png"
+        },
+        {
+            title:"教程回顾",
+            date:'2018年06月12日',
+            is_or:true,
+            ima:"images/0.png"
+        }]
+    }
+});
+
+</script>
+<div id="app6">
+<p :class={'activ':isActiv}>这是文字</p>
+
+</div>
+<script type="text/javascript">
+// let app6=new Vue({
+//     el:"#app6",
+//     data:{
+//      isActiv:true
+//     }
+// })
+
+
+
+</script>
+
+<div id="app7">
+<input type="text" v-model="task.content" :class="{edit:isEdit}" @keydown.enter="addTask"  placeholder="编写任务">
+<div class="list">
+<div class="unit" v-for="(item,index) in list">
+<input type="checkbox">
+<span>{{item.content}}</span>
+</div>
+
+</div>
+</div>
+
+<script type="text/javascript">
+let app6=new Vue({
+    el:'#app7',
+    data:{
+        task:{
+            content:'',
+            finished:false,
+            deleted:false
+        },
+        list:[],
+        isEdit:true
+    },
+    methods:{
+        addTask:function  () {
+            this.list.push(this.task)
+        }
+    }
+})
+
+</script>
+<br><br><hr>
+<div id="app8">
+<my-son  v-for="item in cars"  :msg="item" @con="say"></my-son>
+</div>
+<script type="text/javascript">
+
+Vue.component("my-son",{
+    props:['msg'],
+    // template:`<ul>
+    // <li>{{msg}}</li>
+    // <ul>`
+    template:`
+    <div>
+    <p>{{msg.title}}</p>
+    <p>{{msg.colors}}</p>
+    <p>{{msg.date}}</p>
+    <button @click="send">监听</button>
+    </div>`,
+    methods:{
+        send(){
+            this.$emit('con',this.mess);
+        }
+    },
+    data(){
+        return{
+        mess:"大家好，我是子组件的数据"
+        }
+    }
+});
+var app8=new Vue({
+    el:"#app8",
+    data:{
+        cars:[{
+         title:'bentina',
+         colors:'red',
+         date:'2018年6月9日'
+        },
+        {
+         title:'xiandia',
+         colors:'blue',
+         date:'2018年6月19日'
+        }],
+        
+    },
+    methods:{
+            say(mess){
+                console.log(mess)
+            }
+        }
+}) 
+</script>
+<br><hr>
+<div id="app9" class="app9"> 
+<!-- <my-app></my-app>
+ -->
+<input type="text" placeholder="dosomthing" v-model="detail.conent" @keydown.enter="enter">
+<p>{{detail.conent}}</p>
+<div class="lis">
+<div class="unit" v-for="item in lis">
+<input type="checkbox">
+<span>{{item.conent}}</span>
+</div>
+</div>
+</div>
+
+<script type="text/javascript">
+var app9=new Vue({
+    el:"#app9",
+    data:{
+      detail:{
+        conent:'',
+        is_sty:false,
+        deleted:false
+      },
+       lis:[]
+    },
+
+    methods:{
+    enter(){
+         this.lis.push(this.detail);
+         this.detail={
+          conent:'',
+          is_sty:false,
+          deleted:false
+        }
+    }
+      }  
+    });
+
+
+
+</script>
+<!-- <div id="apo" class="apo"> 
+<button :class="btn">切换</button>
+<div class="container">
+<div class="box"></div>
+</div>
+</div> -->
+<script type="text/javascript">
+// var apo=new Vue({
+//     el:"#apo",
+//     data:{
+//          showBox:false
+//     }
+// })
+</script>
+<script type="text/javascript">
+
+   const Name = '张三';
+    Name = '李四';//错误，企图修改常量Name
+    console.log(Name)
+
+</script>
+
+
 </html>
- 

@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('learn:server');
+var debug = require('debug')('sty:server');
 var http = require('http');
 
 /**
